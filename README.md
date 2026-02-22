@@ -1,6 +1,6 @@
 ## 乱流加载动画
 
-随机展示词库的酷炫加载动画。
+随机展示词库的酷炫加载动画，非常适合追求氛围感的整合包。
 
 演示视频：https://www.bilibili.com/video/BV1zWfwBDEVj/
 

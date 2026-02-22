@@ -2,7 +2,9 @@
 
 A sleek, dynamic loading animation that displays random words from a custom library.
 
-**Demo Video:** [Bilibili - BV1zWfwBDEVj](https://www.bilibili.com/video/BV1zWfwBDEVj/)
+However, I think it's perfect for a modpack that really needs a certain atmosphere.
+
+**Demo Video:** [Youtube](https://youtu.be/OBmEY8V8K04)
 
 ### ### Animation Features
 
