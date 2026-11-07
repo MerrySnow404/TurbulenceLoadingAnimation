@@ -22,7 +22,8 @@ repositories {
 }
 
 dependencies {
-    modImplementation "com.sighs:ApricityUI-fabric-${fabric_minecraft_version}:${aui_version}"
+    modImplementation "com.sighs:ApricityUI-fabric-${fabric_minecraft_version}:${aui_version}:lite"
+    include "com.sighs:ApricityUI-fabric-${fabric_minecraft_version}:${aui_version}:lite"
     annotationProcessor 'net.fabricmc:sponge-mixin:0.15.5+mixin.0.8.7'
 }
 

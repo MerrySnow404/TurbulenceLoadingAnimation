@@ -2,52 +2,84 @@ package com.sighs.turbulenceloadinganimation;
 
 import com.sighs.apricityui.init.Document;
 import com.sighs.apricityui.init.Element;
-import com.sighs.apricityui.event.Event;
+import com.sighs.apricityui.loader.ClientLoader;
+import com.sighs.apricityui.resource.async.image.ImageAsyncHandler;
+import com.sighs.apricityui.style.Animation;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
-
-import static com.sighs.apricityui.init.Window.window;
 
 public class Loading {
     public static String text = "Loading";
     private static Document document;
+    private static Element body;
     private static final String PATH = "tla_ms/index.html";
+    private static List<Element> elements = List.of();
+    private static long[] nextWordAt = new long[0];
+    private static String defaultLanguage;
+    private static List<String> defaultWords;
 
     public static void setup() {
-        if (Document.get(PATH).isEmpty()) {
+        if (document == null || document.isDisposed()) {
             document = Document.create(PATH);
-            Consumer<Event> onload = _e -> {
-                for (int i = 0; i < 10; i++) {
-                    Element e = document.querySelectorAll("span").get(i);
-                    setElementAnimation(e);
-                    final int I = i;
-                    window.setTimeout((a) -> {
-                        setElementAnimation(e);
-                        window.setInterval((b) -> {
-                            setElementAnimation(e);
-                            if (I == 0 || I == 5) e.innerText = text;
-                        }, 2000);
-                    }, 200 * i);
-                }
-            };
-            document.body.addEventListener("load", onload);
-            onload.accept(null);
+            if (document == null) return;
+            document.setReloadPersistent(true);
+        }
+        if (body != document.body) {
+            body = document.body;
+            elements = document.querySelectorAll("span");
+            nextWordAt = new long[elements.size()];
+            body.setAttribute("style", value ? "display:flex;" : "display:none;");
+            try (InputStream background = ClientLoader.getResourceStream("tla_ms/bg.png")) {
+                if (background != null) body.setInlineStyleProperty("background-image", "url(\"bg.png\")");
+            } catch (IOException exception) {
+                System.getLogger(TLA.MODID).log(System.Logger.Level.WARNING,
+                        "Could not inspect the optional loading background", exception);
+            }
+            ImageAsyncHandler.prefetchImages(document);
         }
     }
 
     private static boolean value = false;
     public static void toggle(boolean v) {
         if (value == v) return;
-        if (document == null) return;
-        if (v) document.body.setAttribute("style", "display:flex;");
-        else document.body.setAttribute("style", "display:none;");
         value = v;
+        setup();
+        if (document == null) return;
+        document.body.setInlineStyleProperty("display", v ? "flex" : "none");
+        if (v) {
+            Arrays.fill(nextWordAt, 0);
+            for (Element element : elements) Animation.stop(element.parentElement);
+        } else {
+            for (Element element : elements) {
+                element.parentElement.setAttribute("style", "animation:none;");
+                Animation.stop(element.parentElement);
+            }
+            document.tickFrame();
+        }
     }
 
-    private static void setElementAnimation(Element e) {
-        e.innerText = getWords().get((int) Math.floor(r() * getWords().size()));
-        e.parentElement.setAttribute("style", "font-size:" + Config.fontSize() + "; left: " + (-120 + Config.areaSize() * (0.5 - r())) + "; top: " + (Config.areaSize() * (0.5 - r())) + "; animation: word 2s " + (e.parentElement.getStyle().animation.contains("1") ? "" : "1") + ";");
+    public static void update() {
+        update(System.nanoTime());
+    }
+
+    static void update(long now) {
+        toggle(true);
+        setup();
+        if (document == null) return;
+        List<String> words = getWords();
+        for (int i = 0; i < elements.size(); i++) {
+            if (nextWordAt[i] != 0 && now < nextWordAt[i]) continue;
+            Element element = elements.get(i);
+            element.setTextContent(i == 0 || i == 5 ? text : words.get((int) (r() * words.size())));
+            element.parentElement.setAttribute("style", "font-size:" + Config.fontSize() + "px; left:" + (-120 + Config.areaSize() * (0.5 - r())) + "px; top:" + (Config.areaSize() * (0.5 - r())) + "px; animation:word 2s linear " + (i * 200) + "ms infinite;");
+            if (nextWordAt[i] == 0) nextWordAt[i] = now + 2_000_000_000L + i * 200_000_000L;
+            else nextWordAt[i] += ((now - nextWordAt[i]) / 2_000_000_000L + 1) * 2_000_000_000L;
+        }
+        // Minecraft suspends client ticks while waiting for an integrated server to load.
+        document.tickFrame();
     }
 
     private static double r() {
@@ -56,8 +88,12 @@ public class Loading {
 
     private static List<String> getWords() {
         if (Config.words().isEmpty()) {
-            if (TLA.platform().selectedLanguage().contains("zh_")) return getCnWords();
-            else return getEnWords();
+            String language = TLA.platform().selectedLanguage();
+            if (!language.equals(defaultLanguage)) {
+                defaultLanguage = language;
+                defaultWords = language.contains("zh_") ? getCnWords() : getEnWords();
+            }
+            return defaultWords;
         } else {
             return Config.words();
         }

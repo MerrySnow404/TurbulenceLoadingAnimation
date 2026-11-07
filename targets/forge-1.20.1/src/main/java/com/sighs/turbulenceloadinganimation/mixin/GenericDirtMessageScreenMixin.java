@@ -19,7 +19,7 @@ public class GenericDirtMessageScreenMixin extends Screen {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawCenteredString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)V"), cancellable = true)
     private void text(GuiGraphics p_281274_, int p_283012_, int p_282072_, float p_282608_, CallbackInfo ci) {
         Loading.text = title.getString();
+        Loading.update();
         ci.cancel();
-        Loading.toggle(true);
     }
 }

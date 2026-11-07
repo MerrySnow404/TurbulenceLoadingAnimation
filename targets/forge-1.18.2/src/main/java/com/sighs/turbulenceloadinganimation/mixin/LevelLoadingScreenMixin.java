@@ -17,6 +17,7 @@ public abstract class LevelLoadingScreenMixin {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/LevelLoadingScreen;renderChunks(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/server/level/progress/StoringChunkProgressListener;IIII)V"), cancellable = true)
     private void cancel(PoseStack guiGraphics, int p_96146_, int p_96147_, float p_96148_, CallbackInfo ci) {
         Loading.text = getFormattedProgress();
+        Loading.update();
         ci.cancel();
     }
 }

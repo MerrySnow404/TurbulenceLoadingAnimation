@@ -16,7 +16,8 @@ repositories {
 }
 
 dependencies {
-    implementation "com.sighs:ApricityUI-forge-${forge_minecraft_version}:${aui_version}"
+    modImplementation "com.sighs:ApricityUI-forge-${forge_minecraft_version}:${aui_version}:lite"
+    jarJar "com.sighs:ApricityUI-forge-${forge_minecraft_version}:${aui_version}:lite"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 

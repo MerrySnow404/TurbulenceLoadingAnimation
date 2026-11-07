@@ -18,6 +18,7 @@ public abstract class LevelLoadingScreenMixin {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/LevelLoadingScreen;renderChunks(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/server/level/progress/StoringChunkProgressListener;IIII)V"), cancellable = true)
     private void cancel(GuiGraphics guiGraphics, int p_96146_, int p_96147_, float p_96148_, CallbackInfo ci) {
         Loading.text = getFormattedProgress().getString();
+        Loading.update();
         ci.cancel();
     }
 }

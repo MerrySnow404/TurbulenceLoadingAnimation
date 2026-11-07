@@ -30,6 +30,7 @@ public class ProgressScreenMixin {
             if (this.header != null) {
                 Loading.text = this.header.getString();
             }
+            Loading.update();
             ci.cancel();
         }
     }

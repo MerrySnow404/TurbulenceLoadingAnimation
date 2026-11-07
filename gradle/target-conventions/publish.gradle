@@ -42,12 +42,6 @@ publishMods {
     }
 }
 
-if (plugins.hasPlugin('net.minecraftforge.gradle')) {
-    tasks.withType(PublishToMavenRepository).configureEach { dependsOn tasks.named('reobfJar') }
-    tasks.withType(PublishToMavenLocal).configureEach { dependsOn tasks.named('reobfJar') }
-    tasks.named('publishMods').configure { dependsOn tasks.named('reobfJar') }
-}
-
 tasks.named('publishMods').configure {
     doFirst {
         def missing = [

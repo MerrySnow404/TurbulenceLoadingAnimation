@@ -5,6 +5,10 @@ if (!targetsDirectory.isDirectory()) {
 
 def targetBuilds = [:]
 targetsDirectory.listFiles().findAll { it.isDirectory() }.sort { it.name }.each { directory ->
+    // An open IDE can recreate cache directories after a target has been removed.
+    if (directory.listFiles().every { it.name in ['.idea', '.gradle'] }) {
+        return
+    }
     def descriptor = new File(directory, 'ci.properties')
     if (!descriptor.isFile() || !new File(directory, 'gradlew.bat').isFile()) {
         throw new GradleException("Target '${directory.name}' requires ci.properties and gradlew.bat.")

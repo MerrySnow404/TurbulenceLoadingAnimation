@@ -20,6 +20,7 @@ public class ReceivingLevelScreenMixin {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/ReceivingLevelScreen;drawCenteredString(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)V"), cancellable = true)
     private void cancel(PoseStack p_281489_, int p_282902_, int p_283018_, float p_281251_, CallbackInfo ci) {
         Loading.text = DOWNLOADING_TERRAIN_TEXT.getString();
+        Loading.update();
         ci.cancel();
     }
 }

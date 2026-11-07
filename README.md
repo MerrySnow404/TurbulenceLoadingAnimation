@@ -41,9 +41,13 @@ http://tools.bugscaner.com/text/string2array.html
 
 ### 构建与支持版本
 
-需要 ApricityUI 1.3.1。支持以下目标：Forge 1.16.5、1.18.2、1.19.2、1.20.1；Fabric 1.20.1、1.21.1、26.1；NeoForge 1.21.1、26.1、26.3。
+已内置 ApricityUI 1.3.1 lite，无需单独安装 AUI。支持以下目标：Forge 1.18.2、1.19.2、1.20.1；Fabric 1.20.1、1.21.1、26.1；NeoForge 1.21.1、26.1、26.3。
 
-Forge 1.16.5 需要 Java 17（与 AUI 1.3.1 一致）；NeoForge 26.3 需要 Java 25。
+所有 Forge 目标均使用 SighsTemple 的 `net.neoforged.moddev.legacyforge` 插件（2.0.91）；AUI 使用各 target 的 `modImplementation` 配置接入并重映射。Legacy Forge 上游声明支持 Minecraft 1.17–1.20.1，因此本项目取消 1.16.5 支持。
+
+AUI 依赖使用 Maven 的 `lite` classifier。Forge 和 NeoForge 通过 `jarJar` 内置，Fabric 通过 Loom 的 `include` 内置。
+
+NeoForge 26.3 需要 Java 25。
 
 从项目根目录构建单个目标或所有可用目标：
 

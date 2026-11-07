@@ -20,6 +20,7 @@ public class ReceivingLevelScreenMixin {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawCenteredString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)V", remap = false), cancellable = true, remap = false)
     private void cancel(GuiGraphics p_281489_, int p_282902_, int p_283018_, float p_281251_, CallbackInfo ci) {
         Loading.text = DOWNLOADING_TERRAIN_TEXT.getString();
+        Loading.update();
         ci.cancel();
     }
 }

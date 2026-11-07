@@ -12,7 +12,8 @@ repositories {
 }
 
 dependencies {
-    implementation "com.sighs:ApricityUI-neoforge-${neoforge_263_minecraft_version}:${aui_version}"
+    implementation "com.sighs:ApricityUI-neoforge-${neoforge_263_minecraft_version}:${aui_version}:lite"
+    jarJar "com.sighs:ApricityUI-neoforge-${neoforge_263_minecraft_version}:${aui_version}:lite"
     annotationProcessor 'org.spongepowered:mixin:0.8.7:processor'
 }
 

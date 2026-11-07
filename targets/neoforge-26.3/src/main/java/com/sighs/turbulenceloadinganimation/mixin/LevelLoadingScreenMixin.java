@@ -26,6 +26,7 @@ public abstract class LevelLoadingScreenMixin {
         Loading.text = loadTracker.hasProgress()
                 ? Math.round(loadTracker.serverProgress() * 100.0F) + "%"
                 : DOWNLOADING_TERRAIN_TEXT.getString();
+        Loading.update();
         ci.cancel();
     }
 }

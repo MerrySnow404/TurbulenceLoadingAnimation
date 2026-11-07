@@ -44,9 +44,13 @@ You can create your own word libraries in the config file using a **JSON array**
 
 ### Build Targets
 
-ApricityUI 1.3.1 is required. Supported targets are Forge 1.16.5, 1.18.2, 1.19.2, and 1.20.1; Fabric 1.20.1, 1.21.1, and 26.1; and NeoForge 1.21.1, 26.1, and 26.3.
+ApricityUI 1.3.1 lite is bundled; no separate AUI installation is needed. Supported targets are Forge 1.18.2, 1.19.2, and 1.20.1; Fabric 1.20.1, 1.21.1, and 26.1; and NeoForge 1.21.1, 26.1, and 26.3.
 
-Forge 1.16.5 requires Java 17, matching AUI 1.3.1; NeoForge 26.3 requires Java 25.
+All Forge targets use SighsTemple's `net.neoforged.moddev.legacyforge` plugin (2.0.91), with AUI declared through each target's `modImplementation` remapping configuration. Upstream Legacy Forge supports Minecraft 1.17–1.20.1, so this project no longer supports 1.16.5.
+
+AUI dependencies use Maven's `lite` classifier. Forge and NeoForge embed it through `jarJar`; Fabric uses Loom's `include`.
+
+NeoForge 26.3 requires Java 25.
 
 From the project root, build one target or all targets supported by the current JDK:
 
