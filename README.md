@@ -38,3 +38,20 @@ http://tools.bugscaner.com/text/string2array.html
 - 更多动画配置
 - 支持多词库随机
 - 支持游戏启动界面动画
+
+### 构建与支持版本
+
+需要 ApricityUI 1.3.1。支持以下目标：Forge 1.16.5、1.18.2、1.19.2、1.20.1；Fabric 1.20.1、1.21.1、26.1；NeoForge 1.21.1、26.1、26.3。
+
+Forge 1.16.5 需要 Java 17（与 AUI 1.3.1 一致）；NeoForge 26.3 需要 Java 25。
+
+从项目根目录构建单个目标或所有可用目标：
+
+```powershell
+.\gradlew.bat -Ptarget=fabric-1.20.1 build
+.\gradlew.bat -PallTargets=true build
+```
+
+每个目标使用自己的 Gradle wrapper 和 `ci.properties` 中声明的 Java 版本。
+
+`common` 只提供共享源码、资源和测试；Minecraft、加载器与 AUI 依赖均由各 target 声明。根目录直接执行 `build` 时，会构建当前 JDK 支持的所有目标。

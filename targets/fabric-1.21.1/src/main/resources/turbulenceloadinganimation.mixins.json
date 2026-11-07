@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.sighs.turbulenceloadinganimation.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "turbulenceloadinganimation.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+    "LevelLoadingScreenMixin",
+    "MinecraftMixin",
+    "ProgressScreenMixin",
+    "ReceivingLevelScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

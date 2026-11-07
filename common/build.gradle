@@ -1,0 +1,4 @@
+// Targets compile and test these shared sources against their own Minecraft and AUI dependencies.
+plugins {
+    id 'base'
+}

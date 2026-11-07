@@ -41,3 +41,20 @@ You can create your own word libraries in the config file using a **JSON array**
 * Expanded animation customization.
 * Support for multiple randomized word libraries.
 * Animation support for the initial game splash screen.
+
+### Build Targets
+
+ApricityUI 1.3.1 is required. Supported targets are Forge 1.16.5, 1.18.2, 1.19.2, and 1.20.1; Fabric 1.20.1, 1.21.1, and 26.1; and NeoForge 1.21.1, 26.1, and 26.3.
+
+Forge 1.16.5 requires Java 17, matching AUI 1.3.1; NeoForge 26.3 requires Java 25.
+
+From the project root, build one target or all targets supported by the current JDK:
+
+```powershell
+.\gradlew.bat -Ptarget=fabric-1.20.1 build
+.\gradlew.bat -PallTargets=true build
+```
+
+Each target uses its own Gradle wrapper and the Java version declared in `ci.properties`.
+
+`common` supplies shared sources, resources, and tests. Each target declares its own Minecraft, loader, and AUI dependencies. Running `build` at the project root builds all targets supported by the current JDK.
