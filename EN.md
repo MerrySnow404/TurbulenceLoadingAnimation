@@ -41,3 +41,7 @@ You can create your own word libraries in the config file using a **JSON array**
 * Expanded animation customization.
 * Support for multiple randomized word libraries.
 * Animation support for the initial game splash screen.
+
+### Build Targets
+
+ApricityUI 1.3.1 lite is bundled; no separate AUI installation is needed. Supported targets are Forge 1.18.2, 1.19.2, and 1.20.1; Fabric 1.20.1, 1.21.1, and 26.1; and NeoForge 1.21.1, 26.1, and 26.3.

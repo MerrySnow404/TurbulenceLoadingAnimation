@@ -38,3 +38,7 @@ http://tools.bugscaner.com/text/string2array.html
 - 更多动画配置
 - 支持多词库随机
 - 支持游戏启动界面动画
+
+### 构建与支持版本
+
+已内置 ApricityUI 1.3.1 lite，无需单独安装 AUI。支持以下目标：Forge 1.18.2、1.19.2、1.20.1；Fabric 1.20.1、1.21.1、26.1；NeoForge 1.21.1、26.1、26.3。
